@@ -1,0 +1,258 @@
+<!doctype html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/reset.css" />
+		<link rel="stylesheet/less" type="text/css" href="./style.less" />
+		<script src="./less-1.4.1.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+				<script src="./sylvester.js"></script>
+
+		<script>
+			function trackFormation() {
+			
+				/*for(var x = 1; x < 12; x++) {
+					offset = $("#trackformation_" + x).offset();
+					$("#nametag_" + x).css('top', offset.top).css('left', offset.left-500);
+				}*/
+				return;
+				
+			}
+			
+			function resetFormationToCenter() {
+				offset = $(".center_spot").offset();			
+				for(var x = 1; x < 12; x++) {
+					$("#nametag_" + x).css('top', offset.top).css('left', offset.left-500);
+				}
+			}
+			
+			function trackFormationRotations() {
+				setInterval(function() {
+					trackFormation();
+				}, 30);
+			}
+			
+			/* Wobble field for static cameras */
+			var wobbleTimer;	
+			var Zrotation = 0;
+			function wobbleField(startZ) {
+			$("#field").css("transition", '0s ease').css("-webkit-transition", '0s ease');
+				wobbleStateNew = 0;
+				wobbleTimer = setInterval(function() {
+					setMatrix3D(60, 0, Zrotation/100 + startZ, 1, 0, 0, 0);
+					if(Zrotation < 50 && wobbleStateNew == 0) Zrotation++;
+					else {
+						wobbleStateNew = 1;
+						Zrotation--;
+					}
+					if(Zrotation <= -50) wobbleStateNew = 0;
+					
+					
+				}, 30);
+			}
+			
+			/* Stop wobble. Clears interval and resets nametag rotations */
+			function stopWobble() {
+				clearInterval(wobbleTimer);
+				//for(var x = 1; x < 12; x++) $("#nametag_" + x).css('-webkit-transform', 'rotateZ(0deg)');
+				$("#field").css("transition", '2s ease').css("-webkit-transition", '2s ease');
+			}
+			
+			/* Return a 3D matrix (matrix3d) for CSS transformation */
+			function returnMatrix3D(rX, rY, rZ, scale, tX, tY, tZ) {
+				var deg2rad, scale;
+				deg2rad = Math.PI / 180; // Degrees to radians constant
+				
+				var rotationXMatrix, rotationYMatrix, rotationZMatrix, s, scaleMatrix, transformationMatrix, translationMatrix;
+				rotationXMatrix = $M([
+					[1, 0, 0, 0],
+					[0, Math.cos(rX * deg2rad), Math.sin(-rX * deg2rad), 0],
+					[0, Math.sin(rX * deg2rad), Math.cos(rX * deg2rad), 0],
+					[0, 0, 0, 1]]);
+				
+				rotationYMatrix = $M([
+					[Math.cos(rY * deg2rad), 0, Math.sin(rY * deg2rad), 0],
+					[0, 1, 0, 0],
+					[Math.sin(-rY * deg2rad), 0, Math.cos(rY * deg2rad), 0],
+					[0, 0, 0, 1]]);
+				
+				rotationZMatrix = $M([
+					[Math.cos(rZ * deg2rad), Math.sin(-rZ * deg2rad), 0, 0],
+					[Math.sin(rZ * deg2rad), Math.cos(rZ * deg2rad), 0, 0],
+					[0, 0, 1, 0],
+					[0, 0, 0, 1]]);
+				
+				
+				s = scale;
+				scaleMatrix = $M([[s, 0, 0, 0], [0, s, 0, 0], [0, 0, s, 0], [0, 0, 0, 1]]);
+				
+				transformationMatrix = rotationXMatrix.x(rotationYMatrix).x(rotationZMatrix).x(scaleMatrix);
+				transformationMatrix = transformationMatrix.transpose();
+				translationMatrix = $M([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [tX, tY, tZ, 1]]);
+				transformationMatrix = transformationMatrix.x(translationMatrix); // Apply transformation matrix AFTER transposing rotation and scale
+				
+				s = "matrix3d(";
+				s += transformationMatrix.e(1, 1).toFixed(5) + "," + transformationMatrix.e(1, 2).toFixed(5) + "," + transformationMatrix.e(1, 3).toFixed(5) + "," + transformationMatrix.e(1, 4).toFixed(5) + ",";
+				s += transformationMatrix.e(2, 1).toFixed(5) + "," + transformationMatrix.e(2, 2).toFixed(5) + "," + transformationMatrix.e(2, 3).toFixed(5) + "," + transformationMatrix.e(2, 4).toFixed(5) + ",";
+				s += transformationMatrix.e(3, 1).toFixed(5) + "," + transformationMatrix.e(3, 2).toFixed(5) + "," + transformationMatrix.e(3, 3).toFixed(5) + "," + transformationMatrix.e(3, 4).toFixed(5) + ",";
+				s += transformationMatrix.e(4, 1).toFixed(5) + "," + transformationMatrix.e(4, 2).toFixed(5) + "," + transformationMatrix.e(4, 3).toFixed(5) + "," + transformationMatrix.e(4, 4).toFixed(5);
+				s += ")";
+				
+				return s;
+			}
+			
+			/* Apply a matrix3D transformation to the field */
+			function setMatrix3D(rX, rY, rZ, scl, tX, tY, tZ) {
+				$("#field").css('-webkit-transform', returnMatrix3D(rX, rY, rZ, scl, tX, tY, tZ));
+			}
+			
+		
+			function rotate360() {
+				$('#field').css('transition', '0s').css('-webkit-transition', '0s');
+				rotationTimer = setInterval(function() {
+					setMatrix3D(60, 0, Zrotation/100, 1, 0, 0, 0);
+					if(Zrotation < 36000) Zrotation+=25;
+					else clearInterval(rotationTimer);
+				}, 1);
+			}
+			function beginAnimation() {
+			/*
+				$("#field").css("transition", '2s ease').css("-webkit-transition", '2s ease');
+				setMatrix3D(0, 0, 0, 1, 0, -100, 0);
+				setTimeout(function() {
+					
+					setMatrix3D(0, 0, 180, 1, 0, -100, 0);
+				}, 3000);
+			*/
+				var waypoints = [
+					["$('#nametags').fadeToggle()", 500],
+					["$('#field').css('transition', '2s ease').css('-webkit-transition', '2s ease')", 1000],
+					["setMatrix3D(0, 0, 0, 1.5, 0, -200, 0)", 1110],
+					["Zrotation = 18000", 4110],
+					["setMatrix3D(0, 0, Zrotation/100, 1.5, 0, -200, 0)", 4110],
+					
+					["Zrotation = 0", 7110],					
+					["setMatrix3D(60, 0, 0, 1, 0, 0, 0)", 7110],
+					["$('#top_logo').fadeToggle()", 8000],					
+					["wobbleField(0)", 9000],
+					["$('#nametags').fadeToggle()", 9400],
+					["trackFormation();", 9500],
+					["stopWobble()", 12000],
+					//["setMatrix3D(60, 0, 179.99, 1, 0, 0, 0)", 13000],
+					//["$('#bottom_logo').fadeToggle()", 13900],
+					//["$('#top_logo').fadeToggle()", 13900],
+					//["resetFormationToCenter()", 13000]
+					//["$('#nametags').fadeToggle()", 13500]
+				];
+				setWaypoints(waypoints);
+			
+			}
+			
+			/* Enter and set timeouts for a 2D array of waypoints and delays.
+				Times are cumulative and stacked: =milliseconds following last function
+			 Sample array -
+				[
+					["setMatrix3D(x, x, x, scale, x, y z)", 3000],
+					["setMatrix3D(x, x, x, scale, x, y z)", 5000],
+					["setMatrix3D(x, x, x, scale, x, y z)", 2000],
+					["setMatrix3D(x, x, x, scale, x, y z)", 1500]
+				]
+			*/
+			sum = 0;
+			var globalWaypointArray;
+			function setWaypoints(waypointArray) {
+				execute = 0;
+				globalWaypointArray = waypointArray;
+				for(var x = 0; x < waypointArray.length; x++) {
+					sum = waypointArray[x][1];		
+					execute = waypointArray[x][0];
+					setTimeout(execute, sum);
+					
+					(function(i, string) {
+						setTimeout(function() {
+							console.log(string);
+						}, sum);
+					})(x, waypointArray[x][0]);
+				}
+				
+				console.log("Total Execution Time: " + sum);
+			}
+			
+			$(document).ready(function() {
+				//setInterval(function() {trackFormation()}, 30);
+				//trackFormation();
+				//wobbleTimer = setInterval(function() {wobbleField()}, 2500);
+				
+				
+			});
+			
+			
+
+
+		</script>
+	</head>
+
+	
+	<body style='-webkit-perspective: 1500px;-webkit-transform-origin: 50% 50%;width: 620px;height: 900px;margin-left: 500px;'>
+	<button onclick="beginAnimation()" style='position:absolute;z-index: 100;'>Begin Animation</button>
+		<div id='field' style='width: 600px;height: 900px;background-image: url(http://i.imgur.com/bh9ahq3.png);background-size: 332px;padding: 20px;position:relative;-webkit-transition: 3s ease;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.1);-webkit-transform-style: preserve-3d;'>
+					<div class='center_spot'></div>
+					<div class='center_circle'></div>
+
+			<div class='halves' style="border-bottom:2.5px solid white;">
+				<div class='corner_arc top left' style="border-bottom-right-radius: 100%;"></div>
+				<div class='corner_arc top right' style="border-bottom-left-radius: 100%;"></div>
+				<img id='top_logo' src="./school_TAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 22%;-webkit-transform:rotate(180deg);">
+				<div class="penalty_box" style='border-top:0px;'>
+					<div class='goalbox' style="border-top: 0px;"></div>
+				</div>
+			</div>
+			
+			
+			<div  class='halves' style='border-top:2.5px solid white;position:relative;'>
+				<div class='corner_arc bottom left' style="border-top-right-radius: 100%;"></div>
+				<div class='corner_arc bottom right' style="border-top-left-radius: 100%;right:0;"></div>
+				<img id='bottom_logo' src="./school_SAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 26%;">
+				<div class="penalty_box" style="border-bottom:0px;bottom:0;">
+					<div class="goalbox" style="border-bottom: 0px;bottom:0;"></div>
+				</div>
+			</div>
+			
+			
+
+			
+						
+
+			<div id='formation_trackpoints' style='width: 100%;height: 100%;position: absolute;top: 0;left: 0;'>
+				<div id='trackformation_1' class='formation_marker' style='top: 22%;left: 15%;'></div>
+				<div  id='trackformation_2' class='formation_marker' style='top: 22%;left: 85%;'></div>			
+				<div id='trackformation_3' class='formation_marker' style='top: 47%;left: 15%;'></div>
+				<div id='trackformation_4' class='formation_marker' style='top: 36%;left: 50%;'></div>
+				<div id='trackformation_5' class='formation_marker' style='top: 47%;left: 85%;'></div>
+				<div id='trackformation_6' class='formation_marker' style='top: 70%;left: 15%;'></div>
+				<div id='trackformation_7' class='formation_marker' style='top: 62%;left: 50%;'></div>
+				<div id='trackformation_8' class='formation_marker' style='top: 70%;left: 85%;'></div>			
+				<div id='trackformation_9' class='formation_marker' style='top: 86%;left: 25%;'></div>
+				<div id='trackformation_10' class='formation_marker' style='top: 86%;left: 75%;'></div>
+				<div id='trackformation_11' class='formation_marker' style='top: 96%;left: 50%;'></div>
+			</div>
+			<div id="nametags">
+				<div id='nametag_1' style='top: 22%;left: 15%;'>  <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_2' style='top: 22%;left: 85%;'>  <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_3' style='top: 47%;left: 15%;'>  <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_4'style='top: 36%;left: 50%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_5'style='top: 47%;left: 85%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_6'style='top: 70%;left: 15%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_7'style='top: 62%;left: 50%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_8'style='top: 70%;left: 85%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_9'style='top: 86%;left: 25%;'>   <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_10' style='top: 86%;left: 75%;'> <p style="">Wayne Rooney</p>  </div>
+				<div id='nametag_11' style='top: 96%;left: 50%;'> <p style="">Wayne Rooney</p>  </div>
+			</div>
+		</div>
+
+	</body>
+	
+	
+</html>
+
