@@ -1,0 +1,25 @@
+{
+    "command": "halftime",
+    "tabText": "fdfdfd",
+    "away": {
+    	"schoolAbbreviated": "ISKL",
+    	"score": 3
+    },
+    "home": {
+    	"schoolAbbreviated": "SAS",
+    	"score": 1
+    },
+    
+    "scorebug": {
+        "command": "scorebug",
+        "visible": true,
+        "away": {
+            "schoolAbbreviated": "ISKL",
+            "score": 3
+        },
+        "home": {
+            "schoolAbbreviated": "SAS",
+            "score": 1
+        }
+    }
+}

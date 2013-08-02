@@ -1,0 +1,266 @@
+@font-face {
+	font-family: 'London2012';
+	src: url('./static/LONDON_FONT.TTF');
+	font-style: normal;
+	font-weight: normal;
+}
+
+.sas {
+	background-color:rgb(120,0,32);
+}
+.isb {
+	background-color: rgb(92, 92, 92);
+}
+.ism {
+	background-color:rgb(15, 95, 8);
+}
+.iskl {
+	background-color:rgb(179, 157, 0);
+}
+.jis {
+	background-color:rgb(0, 77, 148);
+}
+.tas {
+	background-color: rgb(0, 53, 146);
+}
+
+.layer {
+	width: 1024px;
+	height: 648px;
+	position: absolute;
+	top: 36px;
+	left: 128px;
+}
+
+#layer_bug {
+}
+
+.text {
+	position:absolute;
+	top:0;
+}
+
+body {
+	width:1280px;
+	height:720px;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	position: relative;
+	font-family:Open Sans;
+	font-size:32px;
+	color:white;
+}
+
+#layer_bug {
+	-webkit-perspective: 1000px;
+	-webkit-perspective-origin: 10% 0%;
+	> div {
+		float: left;
+		background-image: url(./broadcast_elements/score_bug.png);
+		background-repeat: no-repeat;
+		width: 400px;
+		height: 50px;
+		-webkit-transform-origin: 0 0;
+	}
+	.text {
+		text-align:center;
+		line-height:49px;
+	}
+
+	.teamNameAndColor {
+		width:105px;
+		height:49px;
+		float:left;
+		line-height:42px;
+		h1 {
+			width: 100%;
+			height: 49px;
+			float:left;
+			text-shadow: 3px 3px 6px #000;
+		}
+		div {
+			height: 7px;
+			margin-top: 40px;
+			width: 97%;
+			margin-left: 3px;
+		}
+	}
+
+	.teamNameAndColor:nth-of-type(2) { 
+		width:99px;
+		div {
+			width: 100%;
+			margin-left: 0;
+		}
+	}
+	h2 {
+		width: 45px;
+		height: 49px;
+		float:left;
+		color:#333;
+		font-weight:600;
+		font-size:38px;
+	}
+	h2:nth-of-type(1) {
+		margin-right:3px;
+	}
+	h3 {
+		width: 100px;
+		height: 49px;
+		float:left;
+		font-weight:600;
+		color:#EEE;
+	}
+
+}
+
+#layer_GP_double_line {
+	> div {
+		width: 900px;margin-top: 490px;margin-left: 19px;position:relative;
+		-webkit-perspective: 500px;
+		-webkit-perspective-origin: 0 0;
+	}
+	#GP_double_top {
+		position:absolute;
+		background-image: url(./broadcast_elements/GP_double_line_TOP.png);
+		background-size: 900px;
+		background-repeat:no-repeat;
+		height:160px;
+		width:900px;
+		-webkit-transform-origin: 0 0;
+		img:nth-of-type(1) {
+			position:absolute;
+			top:0;
+			width:100px;
+			margin-top: 30px;
+			margin-left: 30px;
+		}
+		h1 {
+			font-family:London2012;
+			color:#EFEFEF;
+			text-shadow:4px 4px 8px #000;
+			font-size:38px;
+			line-height:56px;
+			height:54px;
+			padding-left:20px;
+			text-transform:uppercase;
+			margin-top: 37px;
+			margin-left: 148px;				
+		}
+	}
+
+	#GP_double_bottom {
+		position:absolute;
+		background-image: url(./broadcast_elements/GP_double_line_BOTTOM.png);
+		background-size: 748px;
+		background-repeat: no-repeat;
+		width: 900px;
+		top: 86px;
+		left: 134px;
+		img:nth-of-type(1) {
+			position:absolute;
+			top:0;
+			width:100px;
+			margin-top: 30px;
+			margin-left: 30px;
+		}
+		h2 {
+			height:36px;
+			line-height:33px;
+			color:#6B6B6B;
+			font-size:22pt;
+			font-weight:bold;
+			padding-left:10px;
+			margin-left:20px;
+
+		}			
+	}
+}
+
+#layer_halftime {
+	> div {
+		width: 630px;margin-top: 535px;margin-left: auto;margin-right: auto;position:relative;
+		-webkit-perspective: 1000px;
+
+	}
+	#halftimetab {
+		position:absolute;			
+		background-image: url(./broadcast_elements/halftimetab.png);
+		background-size: 380px;
+		background-repeat:no-repeat;
+		width:380px;
+		height:50px;
+		top: -45px;
+		left: 123px;	
+		text-align:center;
+		line-height:45px;
+		h1 {
+			color:#464646;
+			font-size:40px;
+			font-weight:600;
+			text-transform:uppercase;
+		}	
+	}
+	#halftime {
+		position:absolute;			
+		background-image: url(./broadcast_elements/halftime.png);
+		background-size: 630px;
+		background-repeat:no-repeat;
+		width:630px;
+		height:114px;
+		line-height:105px;
+		-webkit-transform:rotateX(0deg);
+		-webkit-transform-origin:0 0;
+		> div {
+			width: 218px;
+			height: 114px;
+			float:left;
+			text-align:center;
+			position: relative;
+		}
+		h1 {
+			font-size:80px;
+			text-shadow:4px 4px 8px black;
+			color:#EEE;
+		}
+		h2 {
+			width: 82px;
+			height: 114px;
+			float:left;
+			text-align:center;		
+			color:#333;
+			font-size:85px;
+			font-weight:600;
+			margin-top:2px;	
+		}
+		h3 {
+			width: 30px;
+			height: 114px;
+			float:left;
+			text-align:center;
+			color:#333;
+			font-size:85px;
+			font-weight:600;				
+		}
+		#team1 {
+			div {
+				width: 15px;
+				height: 111px;
+				margin-top: 1px;
+				position: absolute;
+				right: 0;		
+				top:0;	
+			}
+			h1 {
+				margin-left:-15px;
+			}
+		}
+		#team2 div {
+			width: 15px;
+			height: 111px;
+			float: left;
+			margin-top: 1px;
+		}		
+	}
+
+}

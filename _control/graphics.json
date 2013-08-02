@@ -1,0 +1,36 @@
+{   
+    "GP_double_line": {
+        "command": "GP_double_line",
+        "enable": true,
+        "header": "fdfdfd",
+        "subheader": "fdfdfd",
+        "imgLink": "./static/school_TAS.png"
+    },
+
+    "halftime": {
+        "command": "halftime",
+        "enable": true,        
+        "tabText": "fdfdfd",
+        "away": {
+            "schoolAbbreviated": "ISKL",
+            "score": 3
+        },
+        "home": {
+            "schoolAbbreviated": "SAS",
+            "score": 1
+        }
+    },
+
+    "scorebug": {
+        "command": "scorebug",
+        "enable": true,
+        "away": {
+            "schoolAbbreviated": "ISKL",
+            "score": 3
+        },
+        "home": {
+            "schoolAbbreviated": "SAS",
+            "score": 1
+        }
+    }
+}

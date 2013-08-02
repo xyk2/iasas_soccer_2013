@@ -1,0 +1,250 @@
+@font-face {
+  font-family: 'London2012';
+  src: url('./static/LONDON_FONT.TTF');
+  font-style: normal;
+  font-weight: normal;
+}
+.sas {
+  background-color: #780020;
+}
+.isb {
+  background-color: #5c5c5c;
+}
+.ism {
+  background-color: #0f5f08;
+}
+.iskl {
+  background-color: #b39d00;
+}
+.jis {
+  background-color: #004d94;
+}
+.tas {
+  background-color: #003592;
+}
+.layer {
+  width: 1024px;
+  height: 648px;
+  position: absolute;
+  top: 36px;
+  left: 128px;
+}
+.text {
+  position: absolute;
+  top: 0;
+}
+body {
+  width: 1280px;
+  height: 720px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  position: relative;
+  font-family: Open Sans;
+  font-size: 32px;
+  color: white;
+}
+#layer_bug {
+  -webkit-perspective: 1000px;
+  -webkit-perspective-origin: 10% 0%;
+}
+#layer_bug > div {
+  float: left;
+  background-image: url(./broadcast_elements/score_bug.png);
+  background-repeat: no-repeat;
+  width: 400px;
+  height: 50px;
+  -webkit-transform-origin: 0 0;
+}
+#layer_bug .text {
+  text-align: center;
+  line-height: 49px;
+}
+#layer_bug .teamNameAndColor {
+  width: 105px;
+  height: 49px;
+  float: left;
+  line-height: 42px;
+}
+#layer_bug .teamNameAndColor h1 {
+  width: 100%;
+  height: 49px;
+  float: left;
+  text-shadow: 3px 3px 6px #000;
+}
+#layer_bug .teamNameAndColor div {
+  height: 7px;
+  margin-top: 40px;
+  width: 97%;
+  margin-left: 3px;
+}
+#layer_bug .teamNameAndColor:nth-of-type(2) {
+  width: 99px;
+}
+#layer_bug .teamNameAndColor:nth-of-type(2) div {
+  width: 100%;
+  margin-left: 0;
+}
+#layer_bug h2 {
+  width: 45px;
+  height: 49px;
+  float: left;
+  color: #333;
+  font-weight: 600;
+  font-size: 38px;
+}
+#layer_bug h2:nth-of-type(1) {
+  margin-right: 3px;
+}
+#layer_bug h3 {
+  width: 100px;
+  height: 49px;
+  float: left;
+  font-weight: 600;
+  color: #EEE;
+}
+#layer_GP_double_line > div {
+  width: 900px;
+  margin-top: 490px;
+  margin-left: 19px;
+  position: relative;
+  -webkit-perspective: 500px;
+  -webkit-perspective-origin: 0 0;
+}
+#layer_GP_double_line #GP_double_top {
+  position: absolute;
+  background-image: url(./broadcast_elements/GP_double_line_TOP.png);
+  background-size: 900px;
+  background-repeat: no-repeat;
+  height: 160px;
+  width: 900px;
+  -webkit-transform-origin: 0 0;
+}
+#layer_GP_double_line #GP_double_top img:nth-of-type(1) {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+#layer_GP_double_line #GP_double_top h1 {
+  font-family: London2012;
+  color: #EFEFEF;
+  text-shadow: 4px 4px 8px #000;
+  font-size: 38px;
+  line-height: 56px;
+  height: 54px;
+  padding-left: 20px;
+  text-transform: uppercase;
+  margin-top: 37px;
+  margin-left: 148px;
+}
+#layer_GP_double_line #GP_double_bottom {
+  position: absolute;
+  background-image: url(./broadcast_elements/GP_double_line_BOTTOM.png);
+  background-size: 748px;
+  background-repeat: no-repeat;
+  width: 900px;
+  top: 86px;
+  left: 134px;
+}
+#layer_GP_double_line #GP_double_bottom img:nth-of-type(1) {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+#layer_GP_double_line #GP_double_bottom h2 {
+  height: 36px;
+  line-height: 33px;
+  color: #6B6B6B;
+  font-size: 22pt;
+  font-weight: bold;
+  padding-left: 10px;
+  margin-left: 20px;
+}
+#layer_halftime > div {
+  width: 630px;
+  margin-top: 535px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  -webkit-perspective: 1000px;
+}
+#layer_halftime #halftimetab {
+  position: absolute;
+  background-image: url(./broadcast_elements/halftimetab.png);
+  background-size: 380px;
+  background-repeat: no-repeat;
+  width: 380px;
+  height: 50px;
+  top: -45px;
+  left: 123px;
+  text-align: center;
+  line-height: 45px;
+}
+#layer_halftime #halftimetab h1 {
+  color: #464646;
+  font-size: 40px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+#layer_halftime #halftime {
+  position: absolute;
+  background-image: url(./broadcast_elements/halftime.png);
+  background-size: 630px;
+  background-repeat: no-repeat;
+  width: 630px;
+  height: 114px;
+  line-height: 105px;
+  -webkit-transform: rotateX(0deg);
+  -webkit-transform-origin: 0 0;
+}
+#layer_halftime #halftime > div {
+  width: 218px;
+  height: 114px;
+  float: left;
+  text-align: center;
+  position: relative;
+}
+#layer_halftime #halftime h1 {
+  font-size: 80px;
+  text-shadow: 4px 4px 8px black;
+  color: #EEE;
+}
+#layer_halftime #halftime h2 {
+  width: 82px;
+  height: 114px;
+  float: left;
+  text-align: center;
+  color: #333;
+  font-size: 85px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+#layer_halftime #halftime h3 {
+  width: 30px;
+  height: 114px;
+  float: left;
+  text-align: center;
+  color: #333;
+  font-size: 85px;
+  font-weight: 600;
+}
+#layer_halftime #halftime #team1 div {
+  width: 15px;
+  height: 111px;
+  margin-top: 1px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+#layer_halftime #halftime #team1 h1 {
+  margin-left: -15px;
+}
+#layer_halftime #halftime #team2 div {
+  width: 15px;
+  height: 111px;
+  float: left;
+  margin-top: 1px;
+}

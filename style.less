@@ -88,7 +88,7 @@
 }
 
 
-#nametags div {
+.nametags div {
 	position: absolute;
 	width: 200px;
 	height: 35px;
@@ -98,9 +98,9 @@
 	margin-top: -35px;
 	border-radius: 8px;
 	background: -webkit-linear-gradient(top, rgba(58,58,58,1) 1%,rgba(20,20,20,1) 100%);
-	-webkit-transition: 2s ease;
--webkit-transform-origin: 50% 50%;
--webkit-transform: translateZ(22px) rotateX(-90deg) rotateY(349deg);
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transform: translateZ(22px) rotateX(-90deg) rotateY(0deg);
+	-webkit-transform-style:preserve-3d;
 	p {
 		font-family: Arial;
 		font-weight: bold;
@@ -111,8 +111,26 @@
 	}
 }
 
+.nametags div:before {
+	content: "Wayne Rooney";
+	position: absolute;
+	width: 200px;
+	height: 35px;
+	background-color: #d3d3d3;
+	-webkit-transform: translateZ(-1px) rotateY(180deg);
+	border-radius: 8px;
+	background: -webkit-linear-gradient(top, #3a3a3a 1%, #141414 100%);
+	font-family: Arial;
+	font-weight: bold;
+	text-align: center;
+	line-height: 35px;
+	font-size: 20px;
+	color: #9bfbff;
+}
 
-@-webkit-keyframes spin {
-    from { -webkit-transform: rotateX(60deg) rotateZ(0deg); }
-	to { -webkit-transform: rotateX(60deg) rotateZ(360deg); }
+
+.dirt_sidepanel {
+	position:absolute;
+	background-color: #7A5135;  
+	-webkit-transform-origin: 0% 0%;
 }
