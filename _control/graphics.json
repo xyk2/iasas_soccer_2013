@@ -32,5 +32,41 @@
             "schoolAbbreviated": "SAS",
             "score": 1
         }
+    },
+
+    "field_view": {
+        "command": "field_view",
+        "enable": true,
+        "hash": "16630721F93C4247DE60EADFAEC6115B"
+    },
+
+    "formationPlayers": {
+        "command": "formationPlayers",
+        "away": {
+            "fullBackL": "",
+            "CenterBackL": "",
+            "CenterBackR": "",
+            "fullBackR": "",
+            "CenterMidL": "",
+            "CenterMidC": "",
+            "CenterMidR": "",
+            "WingerL": "",
+            "WingerR": "",
+            "CenterFwd": "",
+            "Keeper": ""
+        },
+        "home": {
+            "fullBackL": "",
+            "CenterBackL": "",
+            "CenterBackR": "",
+            "fullBackR": "",
+            "CenterMidL": "",
+            "CenterMidC": "",
+            "CenterMidR": "",
+            "WingerL": "",
+            "WingerR": "",
+            "CenterFwd": "",
+            "Keeper": ""
+        }
     }
 }
