@@ -1,4 +1,37 @@
 {   
+    "gameData": {
+        "away": {
+            "schoolAbbreviated": "ISKL",
+            "score": 3,
+            "fullBackL": "Matt Besler",
+            "CenterBackL": "Geoff Cameron",
+            "CenterBackR": "Edgar Castillo",
+            "fullBackR": "Omar Gonzalez",
+            "CenterMidL": "Kyle Beckerman",
+            "CenterMidC": "Michael Bradley",
+            "CenterMidR": "Joe Corona",
+            "WingerL": "Jozy Altidore",
+            "WingerR": "Terrence Boyd",
+            "CenterFwd": "Clint Dempsey",
+            "Keeper": "Tim Howard"
+        },
+        "home": {
+            "schoolAbbreviated": "SAS",
+            "score": 1,
+            "fullBackL": "Matt Besler",
+            "CenterBackL": "Geoff Cameron",
+            "CenterBackR": "Edgar Castillo",
+            "fullBackR": "Omar Gonzalez",
+            "CenterMidL": "Kyle Beckerman",
+            "CenterMidC": "Michael Bradley",
+            "CenterMidR": "Joe Corona",
+            "WingerL": "Jozy Altidore",
+            "WingerR": "Terrence Boyd",
+            "CenterFwd": "Clint Dempsey",
+            "Keeper": "Tim Howard"
+        }
+    },
+
     "GP_double_line": {
         "command": "GP_double_line",
         "enable": true,
@@ -9,64 +42,24 @@
 
     "halftime": {
         "command": "halftime",
-        "enable": true,        
-        "tabText": "fdfdfd",
-        "away": {
-            "schoolAbbreviated": "ISKL",
-            "score": 3
-        },
-        "home": {
-            "schoolAbbreviated": "SAS",
-            "score": 1
-        }
+        "enable": false,        
+        "tabText": "fdfdfd"
     },
 
     "scorebug": {
         "command": "scorebug",
-        "enable": true,
-        "away": {
-            "schoolAbbreviated": "ISKL",
-            "score": 3
-        },
-        "home": {
-            "schoolAbbreviated": "SAS",
-            "score": 1
-        }
+        "enable": true
     },
 
     "field_view": {
         "command": "field_view",
         "enable": true,
-        "hash": "16630721F93C4247DE60EADFAEC6115B"
-    },
-
-    "formationPlayers": {
-        "command": "formationPlayers",
+        "hash": "16307X94F6ADSAEC6115B",
         "away": {
-            "fullBackL": "",
-            "CenterBackL": "",
-            "CenterBackR": "",
-            "fullBackR": "",
-            "CenterMidL": "",
-            "CenterMidC": "",
-            "CenterMidR": "",
-            "WingerL": "",
-            "WingerR": "",
-            "CenterFwd": "",
-            "Keeper": ""
+            "schoolAbbreviated": "ISKL"
         },
         "home": {
-            "fullBackL": "",
-            "CenterBackL": "",
-            "CenterBackR": "",
-            "fullBackR": "",
-            "CenterMidL": "",
-            "CenterMidC": "",
-            "CenterMidR": "",
-            "WingerL": "",
-            "WingerR": "",
-            "CenterFwd": "",
-            "Keeper": ""
-        }
+            "schoolAbbreviated": "SAS"
+        }        
     }
 }

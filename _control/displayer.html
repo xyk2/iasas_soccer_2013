@@ -19,24 +19,29 @@
 		<script>
 			function beginAnimation() {
 				var waypoints = [
-					["fadeToggleNametags(BOTTOM)", 500],
-					["fadeToggleNametags(TOP)", 500],
-					["$('#field').css('transition', '2s ease').css('-webkit-transition', '2s ease')", 1000],
-					["setMatrix3D(0, 0, 0, 1.5, 0, -200, 0)", 1110],
-					["setMatrix3D(0, 0, 180, 1.5, 0, -200, 0)", 4110],
-					["setMatrix3D(60, 0, 0, 1, 0, 0, 0)", 7110],
-					["$('#top_logo').fadeToggle()", 7800],
-					["fadeToggleNametags(BOTTOM)", 8500],					
-					["wobbleField(0)", 9000],
-					["stopWobble()", 12000],
-					["rotate360()", 12000],
-					["fadeToggleNametags(BOTTOM)", 18000],
-					
-					["setMatrix3D(60, 0, 179.99, 1, 0, 0, 0)", 18800],
-					["$('#bottom_logo').fadeToggle()", 19500],
-					["$('#top_logo').fadeToggle()", 19000],
-					["fadeToggleNametags(TOP)", 20000],
-					["rotate360From180()", 24000]
+					["fadeToggleNametags(BOTTOM)", 														500   ],
+					["fadeToggleNametags(TOP)",															500   ],
+					["revealField()", 																	600   ],
+					["$('#field').css('-webkit-transform-style', 'preserve-3d');", 					2000  ],
+					["$('#field').css('transition', '2s ease').css('-webkit-transition', '2s ease')", 	3000  ],
+					["setMatrix3D(0, 0, 0, 1.5, 0, -200, 0)", 											3110  ],
+					["setMatrix3D(0, 0, 180, 1.5, 0, -200, 0)", 										6110  ],
+					["setMatrix3D(60, 0, 0, 1, 0, 0, 0)", 												9110  ],
+					["$('#away_logo').fadeToggle()", 													9800  ],
+					["fadeToggleNametags(BOTTOM)",														10500 ],
+					["wobbleField(0)", 																	11000 ],
+					["stopWobble()", 																	14000 ],
+					["rotate360()", 																	14000 ],
+					["fadeToggleNametags(BOTTOM)", 														20000 ],
+					["setMatrix3D(60, 0, 179.99, 1, 0, 0, 0)",											20800 ],
+					["$('#home_logo').fadeToggle()", 													21500 ],
+					["$('#away_logo').fadeToggle()", 													21000 ],
+					["fadeToggleNametags(TOP)",															22000 ],
+					["rotate360From180()", 																26000 ],
+					["fadeToggleNametags(TOP)", 														32000 ],
+					["unrevealField()", 																35000 ]
+				//["$('#field').hide()", 																33500 ]
+
 					//["resetFormationToCenter()", 13000]
 				];
 				setWaypoints(waypoints);
@@ -78,7 +83,16 @@
 							showOrHideBug("hide", function(){})
 						}
 
+
+						halftimeHandler(json);
+						if(json.halftime.enable) {
+							showOrHideHalftime("show", function(){})
+						} else {
+							showOrHideHalftime("hide", function(){})
+						}		
+
 						fieldViewHandler(json);
+
 
 						/*switch(json.command.toLowerCase()) {
 							case "halftime":
@@ -105,6 +119,31 @@
 				}
 				else {
 					hashState = json.field_view.hash;
+					resetField();
+					// Populate formation player names + school logos
+					$("#home_logo").attr("src", './static/school_'+json.gameData.home.schoolAbbreviated.toUpperCase()+'.png');
+					$("#away_logo").attr("src", './static/school_'+json.gameData.away.schoolAbbreviated.toUpperCase()+'.png');
+
+					var h = json.gameData.home;
+					var homeFormationArray = [h.WingerL, h.WingerR, h.CenterMidL, h.CenterFwd, h.CenterMidR, h.fullBackL, h.CenterMidC, h.fullBackR, h.CenterBackL, h.CenterBackR, h.Keeper];
+					var a = json.gameData.away;
+					var awayFormationArray = [a.WingerL, a.WingerR, a.CenterMidL, a.CenterFwd, a.CenterMidR, a.fullBackL, a.CenterMidC, a.fullBackR, a.CenterBackL, a.CenterBackR, a.Keeper];
+
+
+					$("div[data-side='home'] div").each(function(index, obj){
+						$(this).find('p').html(homeFormationArray[index]);
+						$(this).attr('data-pseudoContent', homeFormationArray[index]);
+					});
+
+					$("div[data-side='away'] div").each(function(index, obj){
+						$(this).find('p').html(awayFormationArray[index]);
+						$(this).attr('data-pseudoContent', awayFormationArray[index]);
+					});
+					
+					// begin animation
+					setTimeout(function() {
+						beginAnimation();
+					}, 1000);
 					console.log("%c Hash changed. Beginning fieldView Animation. ", 'background-color:#555;color:#FF6666');
 
 				}
@@ -112,12 +151,12 @@
 			}
 
 			function scorebugHandler(json) {
-				$(".teamNameAndColor:nth-of-type(1) h1").html(json.scorebug.away.schoolAbbreviated.toUpperCase());
-				$(".teamNameAndColor:nth-of-type(2) h1").html(json.scorebug.home.schoolAbbreviated.toUpperCase());
-				$(".teamNameAndColor:nth-of-type(1) > div").addClass(json.scorebug.away.schoolAbbreviated.toLowerCase());
-				$(".teamNameAndColor:nth-of-type(2) > div").addClass(json.scorebug.home.schoolAbbreviated.toLowerCase());
-				$("#layer_bug h2:nth-of-type(1)").html(json.scorebug.away.score);
-				$("#layer_bug h2:nth-of-type(2)").html(json.scorebug.home.score);				
+				$(".teamNameAndColor:nth-of-type(1) h1").html(json.gameData.away.schoolAbbreviated.toUpperCase());
+				$(".teamNameAndColor:nth-of-type(2) h1").html(json.gameData.home.schoolAbbreviated.toUpperCase());
+				$(".teamNameAndColor:nth-of-type(1) > div").addClass(json.gameData.away.schoolAbbreviated.toLowerCase());
+				$(".teamNameAndColor:nth-of-type(2) > div").addClass(json.gameData.home.schoolAbbreviated.toLowerCase());
+				$("#layer_bug h2:nth-of-type(1)").html(json.gameData.away.score);
+				$("#layer_bug h2:nth-of-type(2)").html(json.gameData.home.score);
 			}
 
 			function GPDoubleLineHandler(json) {
@@ -126,14 +165,13 @@
 				$("#GP_double_bottom h2").html(json.subheader);
 			}
 			function halftimeHandler(json) {
-				console.log(json);
-				$("#halftimetab h1").html(json.tabText);
-				$("#team1 h1").html(json.away.schoolAbbreviated);
-				$("#team2 h1").html(json.home.schoolAbbreviated);
-				$("#halftime h2:nth-of-type(1)").html(json.away.score);
-				$("#halftime h2:nth-of-type(2)").html(json.home.score);
-				$("#team1 > div").addClass(json.away.schoolAbbreviated.toLowerCase());
-				$("#team2 > div").addClass(json.home.schoolAbbreviated.toLowerCase());
+				$("#halftimetab h1").html(json.halftime.tabText.toUpperCase());
+				$("#team1 h1").html(json.gameData.away.schoolAbbreviated.toUpperCase());
+				$("#team2 h1").html(json.gameData.home.schoolAbbreviated.toUpperCase());
+				$("#halftime h2:nth-of-type(1)").html(json.gameData.away.score);
+				$("#halftime h2:nth-of-type(2)").html(json.gameData.home.score);
+				$("#team1 > div").addClass(json.gameData.away.schoolAbbreviated.toLowerCase());
+				$("#team2 > div").addClass(json.gameData.home.schoolAbbreviated.toLowerCase());
 			}
 
 
@@ -295,14 +333,14 @@
 			<div style="width: 1280px;height: 720px;position: absolute;top: 0;left: 0;border: 1px solid red;"></div>
 			<button onclick="beginAnimation()" style='position:absolute;z-index: 100;'>Begin Animation</button>
 			<button onclick="resetField()" style='position:absolute;z-index: 100;'>Reset</button>
-			<div id='field' style='width: 600px;height: 900px;background-image: url(./static/grass_texture.png);background-size: 332px;padding: 20px;position:absolute;-webkit-transition: 3s ease;-webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.1);-webkit-transform-style: preserve-3d;margin-left: -330px;left: 50%;top: 50%;margin-top: -520px;'>
+			<div id='field' style='width: 600px;height: 900px;background-image: url(./static/grass_texture.png);background-size: 332px;padding: 20px;position:absolute;-webkit-transition: 3s ease;-webkit-transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg) scale(0.1);-webkit-transform-style: flat;margin-left: -330px;left: 50%;top: 50%;margin-top: -470px;display:none;'>
 				<div class='center_spot'></div>
 				<div class='center_circle'></div>
 
 				<div class='halves' style="border-bottom:2.5px solid white;">
 					<div class='corner_arc top left' style="border-bottom-right-radius: 100%;"></div>
 					<div class='corner_arc top right' style="border-bottom-left-radius: 100%;"></div>
-					<img id='top_logo' src="./static/school_TAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 22%;-webkit-transform:rotate(180deg);">
+					<img id='away_logo' src="./static/school_TAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 22%;-webkit-transform:rotate(180deg);">
 					<div class="penalty_box" style='border-top:0px;'>
 						<div class='goalbox' style="border-top: 0px;"></div>
 					</div>
@@ -312,7 +350,7 @@
 				<div  class='halves' style='border-top:2.5px solid white;position:relative;'>
 					<div class='corner_arc bottom left' style="border-top-right-radius: 100%;"></div>
 					<div class='corner_arc bottom right' style="border-top-left-radius: 100%;right:0;"></div>
-					<img id='bottom_logo' src="./static/school_SAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 26%;">
+					<img id='home_logo' src="./static/school_SAS.png" style="width: 150px;left: 50%;position: absolute;margin-left: -75px;top: 26%;">
 					<div class="penalty_box" style="border-bottom:0px;bottom:0;">
 						<div class="goalbox" style="border-bottom: 0px;bottom:0;"></div>
 					</div>
@@ -336,7 +374,7 @@
 					<div id='trackformation_10' class='formation_marker' style='top: 86%;left: 75%;'></div>
 					<div id='trackformation_11' class='formation_marker' style='top: 96%;left: 50%;'></div>
 				</div>
-				<div class="nametags">
+				<div class="nametags" data-side='home'>
 					<div id='nametag_1' style='top: 22%;left: 15%;'>  <p style="">Wayne Rooney</p></div>
 					<div id='nametag_2' style='top: 22%;left: 85%;'>  <p style="">Wayne Rooney</p></div>
 					<div id='nametag_3' style='top: 47%;left: 15%;'>  <p style="">Wayne Rooney</p></div>
@@ -350,7 +388,7 @@
 					<div id='nametag_11' style='top: 96%;left: 50%;'> <p style="">Wayne Rooney</p></div>
 				</div>
 				
-				<div class="nametags">
+				<div class="nametags" data-side='away'>
 					<div id='2_nametag_1'  style='top: 78%;left: 85%;'>  <p style="">Wayne Rooney</p></div>
 					<div id='2_nametag_2'  style='top: 78%;left: 15%;'>  <p style="">Wayne Rooney</p></div>
 					<div id='2_nametag_3'  style='top: 53%;left: 85%;'>  <p style="">Wayne Rooney</p></div>

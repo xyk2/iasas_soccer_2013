@@ -55,7 +55,6 @@ function returnMatrix3D(rX, rY, rZ, scale, tX, tY, tZ) {
 		[0, 0, 1, 0],
 		[0, 0, 0, 1]]);
 	
-	
 	s = scale;
 	scaleMatrix = $M([[s, 0, 0, 0], [0, s, 0, 0], [0, 0, s, 0], [0, 0, 0, 1]]);
 	
@@ -164,7 +163,7 @@ function resetField() {
 	$("#field").css('-webkit-transition', '0s ease');
 	$("#field").css('transition', '0s ease');
 
-	$("#field").css('-webkit-transform', 'rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.1)');
+	$("#field").css('-webkit-transform', 'rotateX(0deg) rotateY(90deg) rotateZ(0deg) scale(0.1)');
 	$("#bottom_logo").show();
 	$("#top_logo").show();
 
@@ -173,4 +172,22 @@ function resetField() {
 		$("#field").css('-webkit-transition', '3s ease');
 		$("#field").css('transition', '3s ease');
 	}, 50);
+}
+
+function revealField() {
+	$("#field").css('-webkit-transition', '2s ease');
+	$("#field").css('transition', '2s ease');	
+	$('#field').css('-webkit-transform-style', 'flat');
+	$('#field').show();
+	$("#field").css('-webkit-transform', 'rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.1)');
+}
+
+function unrevealField() {
+	$("#field").css('-webkit-transform', 'rotateX(0deg) rotateY(0deg) rotateZ(180deg) scale(0.6)');
+	setTimeout(function() {
+		$("#field").css('-webkit-transform', 'rotateX(0deg) rotateY(0deg) rotateZ(180deg) scale(0)');
+		setTimeout(function() {
+			$('#field').hide();
+		}, 3500);
+	}, 3500);
 }
